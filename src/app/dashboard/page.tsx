@@ -6,6 +6,9 @@ import { useAuth } from '@/contexts/AuthContext';
 import Input from '@/components/ui/Input';
 import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
+import TwitterPreview from '@/components/SocialMediaPreviews/TwitterPreview';
+import LinkedInPreview from '@/components/SocialMediaPreviews/LinkedInPreview';
+import TweetCard from '@/components/SocialMediaPreviews/TweetCard';
 
 export default function Dashboard() {
   const [youtubeUrl, setYoutubeUrl] = useState('');
@@ -146,73 +149,53 @@ export default function Dashboard() {
 
         {/* Generated Content */}
         {generatedContent && (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="space-y-8">
             {/* Twitter Thread */}
-            <Card hoverable>
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="font-semibold text-lg flex items-center gap-2">
-                  <span className="text-blue-400">🐦</span>
-                  Twitter Thread
-                </h3>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => handleCopy(generatedContent.twitterThread)}
-                >
-                  📋 Copy
-                </Button>
-              </div>
-              <div className="bg-gray-50 rounded-lg p-4 min-h-[200px] text-sm text-gray-700">
-                {generatedContent.twitterThread}
-              </div>
-            </Card>
+            <div>
+              <TwitterPreview
+                content={generatedContent.twitterThread}
+                onCopy={handleCopy}
+              />
+            </div>
 
             {/* Standalone Tweets */}
-            <Card hoverable>
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="font-semibold text-lg flex items-center gap-2">
-                  <span className="text-blue-400">✨</span>
-                  Standalone Tweets
-                </h3>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => handleCopy(generatedContent.tweets.join('\n\n'))}
-                >
-                  📋 Copy All
-                </Button>
-              </div>
-              <div className="space-y-3">
-                {generatedContent.tweets.map((tweet: string, idx: number) => (
-                  <div
-                    key={idx}
-                    className="bg-gray-50 rounded-lg p-3 text-sm text-gray-700"
-                  >
-                    {tweet}
+            <div>
+              <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
+                <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
+                  <div className="flex items-center gap-2">
+                    <svg className="w-5 h-5 text-[#1d9bf0]" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                    <h3 className="font-semibold text-gray-900">Standalone Tweets</h3>
                   </div>
-                ))}
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => handleCopy(generatedContent.tweets.join('\n\n'))}
+                  >
+                    📋 Copy All
+                  </Button>
+                </div>
+                <div className="p-4 grid gap-4">
+                  {generatedContent.tweets.map((tweet: string, idx: number) => (
+                    <TweetCard
+                      key={idx}
+                      content={tweet}
+                      index={idx}
+                      onCopy={handleCopy}
+                    />
+                  ))}
+                </div>
               </div>
-            </Card>
+            </div>
 
             {/* LinkedIn Post */}
-            <Card hoverable>
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="font-semibold text-lg flex items-center gap-2">
-                  <span className="text-blue-600">💼</span>
-                  LinkedIn Post
-                </h3>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => handleCopy(generatedContent.linkedinPost)}
-                >
-                  📋 Copy
-                </Button>
-              </div>
-              <div className="bg-gray-50 rounded-lg p-4 min-h-[200px] text-sm text-gray-700">
-                {generatedContent.linkedinPost}
-              </div>
-            </Card>
+            <div>
+              <LinkedInPreview
+                content={generatedContent.linkedinPost}
+                onCopy={handleCopy}
+              />
+            </div>
           </div>
         )}
 
