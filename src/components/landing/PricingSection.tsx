@@ -2,6 +2,8 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import Link from 'next/link';
+import { useAuth } from '@/contexts/AuthContext';
 
 const plans = [
   {
@@ -52,6 +54,7 @@ const plans = [
 
 export default function PricingSection() {
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('yearly');
+  const { user } = useAuth();
 
   return (
     <section className="py-20 bg-white">
@@ -134,15 +137,31 @@ export default function PricingSection() {
                 </div>
               </div>
 
-              <button
-                className={`w-full py-3 rounded-full font-semibold mb-6 transition-all duration-300 ${
-                  plan.popular
-                    ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-700 hover:to-blue-700 shadow-md hover:shadow-lg'
-                    : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
-                }`}
-              >
-                {plan.cta}
-              </button>
+              {plan.cta === 'Contact Sales' ? (
+                <Link href="#contact">
+                  <button
+                    className={`w-full py-3 rounded-full font-semibold mb-6 transition-all duration-300 cursor-pointer ${
+                      plan.popular
+                        ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-700 hover:to-blue-700 shadow-md hover:shadow-lg'
+                        : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
+                    }`}
+                  >
+                    {plan.cta}
+                  </button>
+                </Link>
+              ) : (
+                <Link href={user ? '/dashboard' : '/signup'}>
+                  <button
+                    className={`w-full py-3 rounded-full font-semibold mb-6 transition-all duration-300 cursor-pointer ${
+                      plan.popular
+                        ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-700 hover:to-blue-700 shadow-md hover:shadow-lg'
+                        : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
+                    }`}
+                  >
+                    {user ? 'Go to Dashboard →' : plan.cta}
+                  </button>
+                </Link>
+              )}
 
               <ul className="space-y-3">
                 {plan.features.map((feature, i) => (

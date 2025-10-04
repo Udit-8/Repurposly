@@ -48,13 +48,13 @@ export default function Navigation() {
             {user ? (
               <>
                 <Link href="/dashboard">
-                  <button className="text-gray-700 hover:text-gray-900 font-medium transition-colors">
+                  <button className="text-gray-700 hover:text-gray-900 font-medium transition-colors cursor-pointer">
                     Dashboard
                   </button>
                 </Link>
                 <button
                   onClick={handleSignOut}
-                  className="bg-gray-100 hover:bg-gray-200 text-gray-900 px-6 py-2 rounded-full font-medium transition-all"
+                  className="bg-gray-100 hover:bg-gray-200 text-gray-900 px-6 py-2 rounded-full font-medium transition-all cursor-pointer"
                 >
                   Sign Out
                 </button>
@@ -62,12 +62,12 @@ export default function Navigation() {
             ) : (
               <>
                 <Link href="/login">
-                  <button className="text-gray-700 hover:text-gray-900 font-medium transition-colors">
+                  <button className="text-gray-700 hover:text-gray-900 font-medium transition-colors cursor-pointer">
                     Login
                   </button>
                 </Link>
                 <Link href="/signup">
-                  <button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-6 py-2.5 rounded-full font-semibold shadow-md hover:shadow-lg transition-all transform hover:scale-105">
+                  <button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-6 py-2.5 rounded-full font-semibold shadow-md hover:shadow-lg transition-all transform hover:scale-105 cursor-pointer">
                     Try it for free
                   </button>
                 </Link>

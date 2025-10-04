@@ -1,8 +1,11 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Link from 'next/link';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function CTASection() {
+  const { user } = useAuth();
   return (
     <section className="py-20 bg-gradient-to-r from-purple-600 via-blue-600 to-purple-600">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -21,9 +24,11 @@ export default function CTASection() {
             engaging content across all platforms.
           </p>
 
-          <button className="bg-white text-purple-600 hover:bg-gray-50 px-8 py-4 rounded-full font-bold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 mb-6">
-            Try Repurposly →
-          </button>
+          <Link href={user ? "/dashboard" : "/signup"}>
+            <button className="bg-white text-purple-600 hover:bg-gray-50 px-8 py-4 rounded-full font-bold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 mb-6 cursor-pointer">
+              {user ? "Go to Dashboard →" : "Try Repurposly →"}
+            </button>
+          </Link>
 
           <div className="flex items-center justify-center gap-6 text-purple-100">
             <div className="flex items-center gap-2">

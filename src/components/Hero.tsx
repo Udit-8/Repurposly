@@ -2,8 +2,10 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function Hero() {
+  const { user } = useAuth();
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-purple-50 via-blue-50 to-white py-20 sm:py-32">
       {/* Background decoration */}
@@ -59,10 +61,10 @@ export default function Hero() {
             className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
           >
             <Link
-              href="/signup"
+              href={user ? "/dashboard" : "/signup"}
               className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-4 rounded-full font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
             >
-              Try Repurposly →
+              {user ? "Go to Dashboard →" : "Try Repurposly →"}
             </Link>
             <Link
               href="#contact"

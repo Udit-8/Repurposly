@@ -1,6 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Link from 'next/link';
+import { useAuth } from '@/contexts/AuthContext';
 
 const features = [
   {
@@ -48,6 +50,7 @@ const features = [
 ];
 
 export default function FeaturesSection() {
+  const { user } = useAuth();
   return (
     <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -97,9 +100,11 @@ export default function FeaturesSection() {
           viewport={{ once: true }}
           className="mt-16 text-center"
         >
-          <button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-4 rounded-full font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
-            Try Repurposly →
-          </button>
+          <Link href={user ? "/dashboard" : "/signup"}>
+            <button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-4 rounded-full font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 cursor-pointer">
+              {user ? "Go to Dashboard →" : "Try Repurposly →"}
+            </button>
+          </Link>
         </motion.div>
       </div>
     </section>
